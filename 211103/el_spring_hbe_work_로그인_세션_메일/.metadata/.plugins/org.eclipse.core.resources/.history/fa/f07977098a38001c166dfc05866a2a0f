@@ -1,0 +1,14 @@
+package a.b.c.com.login.service;
+
+import java.util.List;
+
+import a.b.c.com.mem.vo.SpringMemberVO;
+
+public interface SpringLoginService {
+
+	public List<SpringMemberVO> loginCheck(SpringMemberVO mvo);
+	
+	// ID 인증번호 -------------------------------
+	// 인증번호 이메일 체크 
+	public List<SpringMemberVO> emailCheckCnt(SpringMemberVO mvo);
+}

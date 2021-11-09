@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="a.b.c.com.login.dao.SpringLoginDAO">
+
+
+<select id="loginCheck" parameterType="memberVO" resultType="memberVO">	
+	SELECT 	 A.MID MID
+	   		,A.MPW MPW 
+	FROM 	SPRING_MEMBER A 
+	WHERE 	A.DELETEYN = 'Y'
+	AND   	A.MID = #{mid, jdbcType=VARCHAR}	                          	 
+	AND   	A.MPW = #{mpw, jdbcType=VARCHAR} 
+</select>
+
+<select id="emailCheck" parameterType="memberVO" resultType="memberVO">	
+	SELECT 	 A.MNAME MNAME
+	   		,A.MEMAIL MEMAIL 
+	FROM 	SPRING_MEMBER A 
+	WHERE 	A.DELETEYN = 'Y'
+	AND   	A.MNAME = #{mname, jdbcType=VARCHAR}	                          	 
+	AND   	A.MEMAIL = #{memail, jdbcType=VARCHAR} 
+</select>
+
+CREATE TABLE TEMP_AUTH_NUM(
+    ANUM 	VARCHAR2(20)
+   ,AUTHNUM VARCHAR2(100)
+   ,MEMAIL VARCHAR2(300)
+   ,ADATE DATE
+);
+
+CREATE SEQUENCE AUTHNUM_SEQ
+
+<insert id="boardInsert" parameterType="boardVO">
+
+	INSERT INTO SPRING_BOARD( 	ANUM, 
+								AUTHNUM, 
+								MEMAIL,
+	                          	SBCONTENT
+	                        ) 
+	                  VALUES
+	                  		( 	
+	                  			#{sbnum, jdbcType=VARCHAR}, 
+	                  			#{sbsubject, jdbcType=VARCHAR}, 
+	                  			#{sbname, jdbcType=VARCHAR},	                        
+	                          	SYSDATE
+	                        )
+	                          	
+</insert>
+
+</mapper>
+

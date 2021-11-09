@@ -1,0 +1,99 @@
+package a.b.c.com.login.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import a.b.c.com.common.K_Session;
+import a.b.c.com.login.service.SpringLoginService;
+import a.b.c.com.mem.vo.SpringMemberVO;
+
+@Controller
+public class SpingLoginController {
+	Logger logger = Logger.getLogger(SpingLoginController.class);
+	
+	private SpringLoginService springLoginService;
+	
+	// 생성자 오토와이어드 
+	@Autowired(required=false)	
+	public SpingLoginController(SpringLoginService springLoginService) {
+		this.springLoginService = springLoginService;	
+	}	
+		
+	// 로그인 입력  폼	
+	@GetMapping("loginForm")
+	public String loginForm() {	
+		logger.info("SpingLoginController loginForm() 함수 진입 >>> : ");
+		return "login/springLoginFome";
+	}
+	
+	@PostMapping("login")
+	public String login(HttpServletRequest req, SpringMemberVO mvo, Model model) {	
+		logger.info("SpingLoginController login() 함수 진입 >>> : ");		
+		SpringMemberVO.printVO(mvo);
+		
+		List<SpringMemberVO> listLogin = springLoginService.loginCheck(mvo);
+		logger.info("SpingLoginController login listLogin.size() >>> : " + listLogin.size());
+		
+		if (listLogin.size() == 1) { 
+						
+			K_Session ks = K_Session.getInstance();			
+			String kID = ks.getSession(req);
+			
+			if (kID !=null && kID.equals(listLogin.get(0).getMid())){				
+				logger.info("SpingLoginController login >>> : 로그인 중 >>> : 다른 페이지로 이동 하기 >>> : " + kID);
+				model.addAttribute("listLogin", listLogin);
+				return "main/mainPage";
+			}else {
+				ks.setSession(req, mvo.getMid());
+				logger.info("SpingLoginController login >>> : 세션부여 하기  >>> : " + mvo.getMid());
+				
+				model.addAttribute("listLogin", listLogin);
+				return "login/springLogin";
+			}
+		}		
+		return "login/springLoginFome";
+	}
+	
+	// 아이디찾기 입력  폼	
+	@GetMapping("idFind")
+	public String idFind() {	
+		logger.info("SpingLoginController idFind() 함수 진입 >>> : ");
+		return "login/springIdFindFome";
+	}
+	
+	// 아이디 이메일로 찾기 에서 이메일 확인하기 
+	@GetMapping("email_authentication")
+	public String email_authentication(SpringMemberVO mvo, Model model) {	
+		logger.info("SpingLoginController email_authentication() 함수 진입 >>> : ");
+		
+		List<SpringMemberVO> listEmail = springLoginService.loginCheck(mvo);
+		logger.info("SpingLoginController email_authentication listEmail.size() >>> : " + listEmail.size());
+		
+		// 이메일이 확인되면 인증번호를 이메일로 리턴하기 
+		if (listEmail.size() == 1) {
+			
+		}else {
+			
+		}
+		
+		return "";
+	}
+		
+	@GetMapping("logout")
+	public String logout(HttpServletRequest req, SpringMemberVO mvo, Model model) {	
+		logger.info("SpingLoginController loginout() 함수 진입 >>> : ");		
+		SpringMemberVO.printVO(mvo);
+								
+		K_Session ks = K_Session.getInstance();			
+		String kID = ks.getSession(req);		
+		return "login/springLogout";
+	}
+}

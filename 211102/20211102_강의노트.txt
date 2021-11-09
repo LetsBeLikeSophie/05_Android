@@ -1,0 +1,70 @@
+2021-11-02
+------------------------------------
+
+뷰 : View
+-------------------------
+	앱 실행 화면을 구성하는 요소를 뷰(View)라고 통칭한다.
+	텍스트뷰, 버튼, 라이오버튼, 이미지 등 모두 View 클래스의 상속을 받는다.
+	뷰 클래스는 위젯 이라고도 한다. 
+	버튼을 버튼 위젯, 실제 코드는 버튼 클래스 이다.
+	위젯을 담을 수 있는 위젯을 레이아웃 이라고 한다.
+	레이아웃은 ViewGroup 클래스 아래에 존재한다.
+	위젯은 단독으로 존재하지 않으며, 위젯을 담아 배치하는 틀이 레이아웃이다. 
+	
+Object
+View 
+	ViewGroup
+		LinerLayout
+			TableLayout
+		RelativeLayout
+		FrameLayout
+		GridLayout
+		AdapterView
+			AbsListView
+				ListView
+				GridView
+			AbsSpinner
+				Gallery
+				Spinner
+		ToolBar
+	TextView
+		EditText
+		Button
+			CopmoundButton
+				CheckBox
+				ToggleButton
+				Switch
+				RadioButton
+	ImageView
+		ImageButton
+	ProgressBar
+
+
+레이아웃 Layout
+-------------------------
+레이아웃에 자주 사용되는 속성
+orientation : 레이아웃 안에 배치할 위젯의 수직 또는 수평 방향을 설정한다. 
+gravity : 레이아웃 안에 배치할 위젯의 정렬 방향을 좌측, 우측, 중앙 등으로 설정한다.
+padding	: 레이아웃 안에 배치할 위젯의 여백을 설정한다.
+layout_weight : 레이아웃이 전체 화면에서 차지하는 공간의 가중값을 설정하는데,
+				여러 개의 레이아웃이 중복될 때 주로 사용한다.
+baselineAllgned : 레이아웃 안데 배치할 위젯을 보기 좋게 정렬한다.
+
+
+리니어레이아웃(선형 레이아웃) : LinerLayout
+	레이아웃의 왼쪽 위부터 아래쪽 또는 오른쪽으로 차례로 배치한다.
+렐러티브레이아웃(상대 레이아웃) : RelativeLayout
+	위젯 자신이 속한 레이아웃의 상하좌우 위치를 지정하여 배치하거나
+	다은 위젯으로부터 상대적인 위치를 지정한다.
+테이블레이아웃 : TableLayout
+	위젯을 행과 열의 개수를 지정한 테이블 형태로 배열한다.
+그리드레이아웃 : GridLayout
+	데이블레이아웃과 비슷하지만 행 또는 열을 확장하여
+	다양하게 배치할 때 더 편리하다. 
+프레임레이아웃 : FrameLayout
+	위젯을 왼쪽 위에 일률적으로 겹쳐서 배치하여 중보되어 보이는 효과를 낼 수 있다.
+	여러개의 위젯을 배치한 후 상황에 따라서 필요한 위젯을 보이는 방식에 주로 사용
+
+2014년 5월 구글 I/O에서 새로운 ConstraintLayout 소개
+RelativeLayout와 상당히 비슷하지만, 인터페이스를 더 풍부한 방식으로 
+표현할 수 있도록 다양한 방법을 제공한다. 
